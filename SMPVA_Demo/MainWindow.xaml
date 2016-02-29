@@ -1,0 +1,66 @@
+﻿<Window x:Class="PhoneRegistation_Demo.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:PhoneRegistation_Demo"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" WindowStartupLocation="CenterScreen" Name="uc">
+    <Grid Background="WhiteSmoke">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="Auto" />
+        </Grid.ColumnDefinitions>
+
+        <Button Grid.ColumnSpan="2" HorizontalAlignment="Right" Content="Restart"
+                Command="{Binding OnCommandFromView}" CommandParameter="RESTART" IsEnabled="{Binding BtnEnabled}" Height="24" />
+        
+        <DockPanel Grid.Row="1" Grid.ColumnSpan="2">
+            <TextBlock Text="ApiKey:" Padding="5" />
+            <TextBox Text="{Binding ApiKey}" VerticalAlignment="Center" />
+        </DockPanel>
+        <DockPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <TextBlock Text="Service:" Padding="5" />
+            <ComboBox ItemsSource="{Binding AvailableServices}" SelectedItem="{Binding SelectedService}" IsEnabled="{Binding SelectServiceEnabled}"
+                      DisplayMemberPath="ServiceDisplayName"
+                      VerticalAlignment="Center"/>
+        </DockPanel>
+
+        <DockPanel Grid.Row="3" Grid.ColumnSpan="2">
+            <TextBlock Text="Phone Number:" Padding="5" Width="100" />
+            <TextBox Text="{Binding PhoneNumberReply}" VerticalAlignment="Center" />
+        </DockPanel>
+
+        <DockPanel Grid.Row="4" Grid.ColumnSpan="2">
+            <TextBlock Text="Activation Code:" Padding="5" Width="100" />
+            <TextBox Text="{Binding ActivationCode}" VerticalAlignment="Center" />
+        </DockPanel>
+
+        <TextBox Grid.Row="5"
+                 Text="{Binding ProgressUpdates}" MaxWidth="{Binding ElementName=uc, Path=ActualWidth}"
+                 BorderThickness="0" Background="WhiteSmoke" IsReadOnly="True" Padding="5" Grid.ColumnSpan="2" />
+
+        <StackPanel Orientation="Horizontal" Grid.Row="6" IsEnabled="{Binding BtnEnabled}" >
+            <Button Grid.Row="6" Command="{Binding OnCommandFromView}" CommandParameter="CONTINUE" Content="{Binding ButtonText}" 
+                    Height="24" MinWidth="60" Margin="5" />
+            <!--<Button Command="{Binding OnCommandFromView}" CommandParameter="PROVERKA" Visibility="{Binding VisibleHasPhoneText}"
+                    Content="Check The Number" Margin="5" Height="24" />-->
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" Grid.Row="6" Grid.Column="1" Visibility="{Binding VisibleGotNumber}" IsEnabled="{Binding BtnEnabled}">
+            <Button Command="{Binding OnCommandFromView}" CommandParameter="DENY"
+                    Content="Deny Number" Margin="5" Height="24" />
+            <Button Command="{Binding OnCommandFromView}" CommandParameter="BAN"
+                    Content="Ban Number" Margin="5" Height="24" />
+        </StackPanel>
+    </Grid>
+</Window>
